@@ -1,9 +1,5 @@
 package paquete;
-
-import java.util.Scanner;
-
 public class Profesional extends Usuario{
-    Scanner sc = new Scanner(System.in);
     private String titulo;
     private String fechaIngreso;
 
@@ -11,8 +7,8 @@ public class Profesional extends Usuario{
 
     }
 
-    public Profesional(String nombre, String fechaNac, Integer run, String tipo, String titulo, String fechaIngreso) {
-        super(nombre, fechaNac, run, tipo);
+    public Profesional(String nombreCompleto, String fechaNacimiento, Integer run, String tipo, String titulo, String fechaIngreso) {
+        super(nombreCompleto, fechaNacimiento, run, tipo);
         this.titulo = titulo;
         this.fechaIngreso = fechaIngreso;
     }
@@ -25,10 +21,8 @@ public class Profesional extends Usuario{
         do{
             System.out.println("Ingrese título");
             titulo = sc.nextLine();
-            if(titulo.length() >= 10 && titulo.length() <= 50){
-                this.titulo = titulo;
-            }
-        }while(titulo.isBlank() || titulo.isEmpty());
+            this.titulo = titulo;
+        }while(titulo.isBlank() || titulo.length() < 10 || titulo.length() > 50);
         System.out.println("Registrado exitosamente");
     }
 
@@ -39,21 +33,10 @@ public class Profesional extends Usuario{
     public void setFechaIngreso(String fechaIngreso) {
         System.out.println("Indique fecha de ingreso DD/MM/AAAA");
         fechaIngreso = sc.nextLine();
-        if(fechaNac.isBlank() || fechaNac.isEmpty() || !fechaNac.matches("^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$")){
-            this.fechaIngreso = fechaIngreso;
+        this.fechaIngreso = fechaIngreso;
+        if(fechaIngreso.isBlank() || fechaIngreso.isEmpty() || !fechaIngreso.matches("^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$")){
             System.out.println("Registrado exitosamente");
-        }else{
-            this.fechaIngreso = null;
         }
-
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = "Profesional";
     }
 
     @Override
@@ -61,15 +44,16 @@ public class Profesional extends Usuario{
         return "Profesional{" +
                 "titulo='" + titulo + '\'' +
                 ", fechaIngreso='" + fechaIngreso + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", fechaNac='" + fechaNac + '\'' +
+                ", nombreCompleto='" + nombreCompleto + '\'' +
+                ", fechaNacimiento='" + fechaNacimiento + '\'' +
                 ", run=" + run +
-                '}';
+                ", tipo='" + tipo + '\'' +
+                "} ";
     }
 
     @Override
     public void analizarUsuario() {
         super.analizarUsuario();
-        System.out.println("Su título es: " +this.titulo+ ", y la fecha en que ingresó a la empresa es: " + this.fechaNac);
+        System.out.println("Su título es: " +this.titulo+ ", y la fecha en que ingresó a la empresa es: " + this.fechaIngreso);
     }
 }

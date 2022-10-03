@@ -7,17 +7,14 @@ public class Principal {
 
     public static void main(String[] args) {
         Usuario u = new Usuario();
-        u.setNombre(u.getNombre());
-        u.setFechaNac(u.getFechaNac());
-        u.setRun(u.getRun());
         Cliente c = new Cliente();
         Profesional p = new Profesional();
         Administrativo a = new Administrativo();
         Capacitacion cap = new Capacitacion();
+        Accidente ac = new Accidente();
+        VisitaTerreno vt = new VisitaTerreno();
+        Revision rev = new Revision();
         Contenedor cont = new Contenedor();
-        cont.agregarUsuario(u);
-        cont.mostrarListaUsuarios();
-        cont.eliminarUsuario(u, u.getRun());
 
         System.out.println("------Bienvenido al Sistema de Registro------");
         //Comienzo del menu
@@ -42,62 +39,89 @@ public class Principal {
 
             switch(opcion){
                 case 1:
-                    c.setRut(c.getRut());
-                    c.setNombres(c.getNombres());
-                    c.setApellidos(c.getApellidos());
-                    c.setTelefono(c.getTelefono());
+                    c.setTipo("Cliente");
+                    c.setNombreCompleto(c.getNombreCompleto());
+                    c.setRun(c.getRun());
+                    c.setFechaNacimiento(c.getFechaNacimiento());
                     c.setAfp(c.getAfp());
                     c.setSistSalud(c.getSistSalud());
                     c.setDireccion(c.getDireccion());
                     c.setComuna(c.getComuna());
                     c.setEdad(c.getEdad());
-                    cont.listaUsuarios.add(c);
+                    c.setTelefono(c.getTelefono());
+                    cont.almacenarCliente(c);
                     break;
                 case 2:
-                    p.setNombre(p.getNombre());
+                    p.setTipo("Profesional");
+                    p.setNombreCompleto(p.getNombreCompleto());
                     p.setRun(p.getRun());
-                    p.setFechaNac(p.getFechaNac());
-                    p.setTipo(p.getTipo());
+                    p.setFechaNacimiento(p.getFechaNacimiento());
                     p.setTitulo(p.getTitulo());
                     p.setFechaIngreso(p.getFechaIngreso());
-                    cont.listaUsuarios.add(p);
+                    cont.almacenarProfesional(p);
                     break;
-                case 3:
-                    a.setNombre(a.getNombre());
-                    a.setFechaNac(a.getFechaNac());
+             case 3:
+                    a.setTipo("Administrativo");
+                    a.setNombreCompleto(a.getNombreCompleto());
                     a.setRun(a.getRun());
-                    a.setTipo(a.getTipo());
+                    a.setFechaNacimiento(a.getFechaNacimiento());
                     a.setArea(a.getArea());
-                    a.setExpPrevia(a.getExpPrevia());
-                    cont.listaUsuarios.add(a);
+                    a.setExperienciaPrevia(a.getExperienciaPrevia());
+                    cont.almacenarAdministrativo(a);
                     break;
-                case 4:
-                    cap.setId(cap.getId());
+               case 4:
+                    cap.setIdCapacitacion(cap.getIdCapacitacion());
                     cap.setRutCliente(cap.getRutCliente());
+                    cap.setDuracion(cap.getDuracion());
                     cap.setDia(cap.getDia());
                     cap.setHora(cap.getHora());
                     cap.setLugar(cap.getLugar());
-                    cont.listaCapacitacion.add(cap);
+                    cap.setCantidadAsistentes(cap.getCantidadAsistentes());
+                    cont.agregarCapacitacion(cap);
                     break;
-                case 5:
+                   case 5:
+                       ac.setIdAccidente(ac.getIdAccidente());
+                       ac.setRutCliente(ac.getRutCliente());
+                       ac.setDia(ac.getDia());
+                       ac.setHora(ac.getHora());
+                       ac.setLugar(ac.getLugar());
+                       ac.setOrigen(ac.getOrigen());
+                       ac.setConsecuencias(ac.getConsecuencias());
                     break;
                 case 6:
+                    vt.setIdVisita(vt.getIdVisita());
+                    vt.setRutCliente(vt.getRutCliente());
+                    vt.setDia(vt.getDia());
+                    vt.setHora(vt.getHora());
+                    vt.setLugar(vt.getLugar());
+                    vt.setComentarios(vt.getComentarios());
                     break;
                 case 7:
+                    rev.setIdRevision(rev.getIdRevision());
+                    rev.setIdVisita(rev.getIdVisita());
+                    rev.setNombreRevision(rev.getNombreRevision());
+                    rev.setDetalle(rev.getDetalle());
+                    rev.setEstado(rev.getEstado());
                     break;
-                case 8:
+                 case 8:
+                     cont.eliminarUsuario(u.getRun());
                     break;
                 case 9:
-                    cont.listaUsuarios.toString();
+                    cont.mostrarListaUsuarios();
                     break;
                 case 10:
+
+                    cont.listarPorTipo(u.getTipo());
                     break;
                 case 11:
-                    cont.listaCapacitacion.toString();
+                    cont.mostrarListaCapaciones();
                     break;
                 case 12:
+                    System.out.println("Gracias por preferirnos, hasta pronto!");
+                    salir = true;
                     break;
                 default:
+                    System.out.println("Ingrese una opción válida");
             }
         }
     }

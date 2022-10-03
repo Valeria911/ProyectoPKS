@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Evento {
     Scanner sc = new Scanner(System.in);
-    protected Long id;
     protected Integer rutCliente;
     protected String dia;
     protected String hora;
@@ -14,25 +13,11 @@ public class Evento {
 
     }
 
-    public Evento(Long id, Integer rutCliente, String dia, String hora, String lugar) {
-        this.id = id;
+    public Evento(Integer rutCliente, String dia, String hora, String lugar) {
         this.rutCliente = rutCliente;
         this.dia = dia;
         this.hora = hora;
         this.lugar = lugar;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        do{
-            System.out.println("Indique número de ID");
-            id = sc.nextLong();
-            this.id = id;
-        }while(id.equals(null));
-        System.out.println("Registrado existosamente");
     }
 
     public Integer getRutCliente() {
@@ -44,7 +29,7 @@ public class Evento {
             System.out.println("Ingrese Rut del Cliente");
             rutCliente = sc.nextInt();
             this.rutCliente = rutCliente;
-        }while(rutCliente.equals(null));
+        }while(rutCliente == null);
         System.out.println("Registrado exitosamente");
         sc.nextLine();
     }
@@ -54,13 +39,11 @@ public class Evento {
     }
 
     public void setDia(String dia) {
-                System.out.println("Indique qué día de la semana será la capacitación");
-                dia = sc.nextLine();
-        if(dia.equals("Lunes") || dia.equals("Martes") || dia.equals("Miercoles") || dia.equals("Jueves") || dia.equals("Viernes")) {
-                this.dia = dia;
+        System.out.println("Indique el día de la semana");
+        dia = sc.nextLine();
+        this.dia = dia;
+        if(dia.equalsIgnoreCase("Lunes") || dia.equalsIgnoreCase("Martes") || dia.equalsIgnoreCase("Miercoles") || dia.equalsIgnoreCase("Jueves") || dia.equalsIgnoreCase("Viernes")) {
             System.out.println("Registrado con éxito");
-            }else{
-            this.dia = null;
         }
     }
 
@@ -70,7 +53,7 @@ public class Evento {
 
     public void setHora(String hora) {
         do{
-            System.out.println("Ingrese la hora de la capacitación HH:MM");
+            System.out.println("Ingrese la hora HH:MM");
             hora = sc.nextLine();
             this.hora = hora;
         }while(!hora.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"));
@@ -83,18 +66,17 @@ public class Evento {
 
     public void setLugar(String lugar) {
         do{
-            System.out.println("Ingrese el lugar donde se realizará la capacitación");
+            System.out.println("Ingrese el lugar");
             lugar = sc.nextLine();
             this.lugar = lugar;
-        }while(lugar.isBlank() || lugar.isEmpty() || lugar.length() < 10 || lugar.length() > 50);
+        }while(lugar.isBlank() || lugar.length() < 10 || lugar.length() > 50);
         System.out.println("Registrado con éxito");
     }
 
     @Override
     public String toString() {
         return "Evento{" +
-                "id=" + id +
-                ", rutCliente=" + rutCliente +
+                "rutCliente=" + rutCliente +
                 ", dia='" + dia + '\'' +
                 ", hora='" + hora + '\'' +
                 ", lugar='" + lugar + '\'' +
